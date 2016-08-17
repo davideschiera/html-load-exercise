@@ -1,58 +1,68 @@
 <!doctype html>
 <html lang="">
-
 <head>
-   <meta charset="utf-8">
-   <title>Page timeline</title>
+    <meta charset="utf-8">
+    <title>Page timeline</title>
 
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
-   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.js"></script>
 </head>
 
 <body>
-   <p>Cool simple page!</p>
+    <p>Cool simple page!</p>
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.js" async defer></script>
-   
-   <script>
-      function recursive(n) {
-          if(n <= 2) {
-              return 1;
-          } else {
-              return this.recursive(n - 1) + this.recursive(n - 2);
-          }
-      }
-            
-      console.warn('Starting recursive call (assume it will take 1 second)');
-      recursive(30);
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.js" async defer></script>
 
-      console.warn('Getting data (assume it will take 1 second)');
-
-      $.get('/assets/editor/other/snippets/html.js')
-        .then(
-            function(result) {
-                  console.warn('Received data');
-
-               return new Promise(function(resolve) {
-                  console.warn('Start processing data (assume it will take 1 second)');
-                  recursive(30);
-                  
-                  resolve();
-               });
+    <script>
+        function recursive(n) {
+            if(n <= 2) {
+                return 1;
+            } else {
+                return this.recursive(n - 1) + this.recursive(n - 2);
             }
-        ).then(
-            function(result) {
-                console.warn('Done processing data');
-            }
-         );
-   </script>
+        }
 
-   <p>... and this is the rest of it!</p>
+        console.warn('1. Starting recursive call (assume it will take 1 second)');
+
+        recursive(40);
+
+        console.warn('2. Getting data (assume it will take 1 second)');
+
+        $.get('https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js')
+            .then(
+                function(result) {
+                    console.warn('3. Received data');
+
+                    return new Promise(function(resolve) {
+                        console.warn('4. Start processing data');
+
+                        setTimeout(
+                            function() {
+                                console.warn('5. Actually start processing data (assume it will take 1 second)');
+
+                                recursive(40);
+
+                                resolve();
+                            },
+                            0
+                        );
+                    });
+                }
+            )
+            .then(
+                function(result) {
+                    console.warn('6. Done processing data');
+                }
+            );
+
+        console.warn('7. Done!');
+    </script>
+
+    <p>... and this is the rest of it!</p>
 </body>
-
 </html>
