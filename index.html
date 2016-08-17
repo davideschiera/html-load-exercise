@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
 </head>
 
 <body>
     <p>Cool simple page!</p>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.js" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js" async defer></script>
 
     <script>
         function recursive(n) {
@@ -31,9 +31,9 @@
 
         recursive(40);
 
-        console.warn('2. Getting data (assume it will take 1 second)');
+        console.warn('2. Getting data (assume the download will take 1 second)');
 
-        $.get('https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js')
+        $.get('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.js')
             .then(
                 function(result) {
                     console.warn('3. Received data');
@@ -48,19 +48,23 @@
                                 recursive(40);
 
                                 resolve();
+
+                                console.warn('6. Complete delayed processing');
                             },
                             0
                         );
+
+                        console.warn('7. Done with promise');
                     });
                 }
             )
             .then(
                 function(result) {
-                    console.warn('6. Done processing data');
+                    console.warn('8. Done processing data');
                 }
             );
 
-        console.warn('7. Done!');
+        console.warn('9. Done!');
     </script>
 
     <p>... and this is the rest of it!</p>
